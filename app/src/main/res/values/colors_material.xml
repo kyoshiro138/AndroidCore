@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="c_primary_color50">#E3F2FD</color>
+    <color name="c_primary_color100">#BBDEFB</color>
+    <color name="c_primary_color200">#90CAF9</color>
+    <color name="c_primary_color300">#64B5F6</color>
+    <color name="c_primary_color400">#42A5F5</color>
+    <color name="c_primary_color500">#2196F3</color>
+    <color name="c_primary_color600">#1E88E5</color>
+    <color name="c_primary_color700">#1976D2</color>
+    <color name="c_primary_color800">#1565C0</color>
+    <color name="c_primary_color900">#0D47A1</color>
+
+    <color name="c_primary">@color/c_primary_color500</color>
+    <color name="c_primary_dark">@color/c_primary_color700</color>
+    <color name="c_accent">@color/c_primary_color500</color>
+</resources>
