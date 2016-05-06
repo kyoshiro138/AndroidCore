@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="c_debug_solid_red">#ffff4444</color>
+    <color name="c_debug_alpha_red">#8f44</color>
+    <color name="c_debug_solid_green">#ff99cc00</color>
+    <color name="c_debug_alpha_green">#8899cc00</color>
+    <color name="c_debug_solid_blue">#ff33b5e5</color>
+    <color name="c_debug_alpha_blue">#8833b5e5</color>
+    <color name="c_debug_shadow">#4000</color>
+</resources>
