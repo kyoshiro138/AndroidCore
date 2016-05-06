@@ -31,6 +31,10 @@ public abstract class DatePickerField extends RelativeLayout implements View.OnC
         mCalendar.setTime(date);
         String dateString = mDateFormat.format(mDate);
         onUpdateText(dateString);
+
+        if(mPickerDialog!=null) {
+            mPickerDialog.updateDate(getYear(),getMonth(),getDay());
+        }
     }
 
     public int getYear() {
@@ -62,10 +66,12 @@ public abstract class DatePickerField extends RelativeLayout implements View.OnC
 
     protected void initPicker(Context context) {
         inflate(context, getPickerLayoutResource(), this);
+
         mDate = new Date(System.currentTimeMillis());
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(mDate);
         mDateFormat = new SimpleDateFormat(getDateFormat(), Locale.getDefault());
+
         setClickable(true);
         setOnClickListener(this);
     }
@@ -88,6 +94,7 @@ public abstract class DatePickerField extends RelativeLayout implements View.OnC
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         mCalendar.set(year, monthOfYear, dayOfMonth);
         mDate.setTime(mCalendar.getTimeInMillis());
+
         String dateString = mDateFormat.format(mDate);
         onUpdateText(dateString);
     }
