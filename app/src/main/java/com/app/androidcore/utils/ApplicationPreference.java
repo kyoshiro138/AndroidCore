@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 public class ApplicationPreference {
+    private static final String DEBUG_TAG = "APPLICATION_PREFERENCE";
+    private static final boolean LOG_DEBUG = true;
+
     public static final String PREFERENCE_TYPE_STRING = "PREFERENCE_TYPE_STRING";
     public static final String PREFERENCE_TYPE_INTEGER = "PREFERENCE_TYPE_INTEGER";
     public static final String PREFERENCE_TYPE_BOOLEAN = "PREFERENCE_TYPE_BOOLEAN";
@@ -24,10 +27,10 @@ public class ApplicationPreference {
 
     public ApplicationPreference(Context context, String PrefName, int mode) {
         mContext = context;
-        mSharedPreferences = context.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
+        mSharedPreferences = context.getSharedPreferences(PrefName, mode);
     }
 
-    public boolean saveValue(String key, Object value, String valueType) {
+    public boolean putValue(String key, Object value, String valueType) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
 
         switch (valueType) {
@@ -47,15 +50,20 @@ public class ApplicationPreference {
                 editor.putLong(key, (long) value);
                 break;
             default:
-                Log.d(mContext.getPackageName(), "PREFERENCE TYPE NOT SUPPORTED");
                 editor.apply();
+
+                if (LOG_DEBUG) {
+                    Log.d(DEBUG_TAG, "PREFERENCE TYPE NOT SUPPORTED");
+                }
                 return false;
         }
 
         editor.apply();
 
-        String logMessage = String.format("PREFERENCE SAVED [TYPE:%s] [KEY:%s] [VALUE:%s]", valueType, key, value.toString());
-        Log.d(mContext.getPackageName(), logMessage);
+        if (LOG_DEBUG) {
+            String logMessage = String.format("PREFERENCE PUT [TYPE:%s] [KEY:%s] [VALUE:%s]", valueType, key, value.toString());
+            Log.d(DEBUG_TAG, logMessage);
+        }
         return true;
     }
 
@@ -78,12 +86,16 @@ public class ApplicationPreference {
                 value = mSharedPreferences.getLong(key, (long) defValue);
                 break;
             default:
-                Log.d(mContext.getPackageName(), "PREFERENCE TYPE NOT SUPPORTED");
+                if (LOG_DEBUG) {
+                    Log.d(DEBUG_TAG, "PREFERENCE TYPE NOT SUPPORTED");
+                }
                 return null;
         }
 
-        String logMessage = String.format("PREFERENCE LOADED [TYPE:%s] [KEY:%s] [VALUE:%s]", valueType, key, value.toString());
-        Log.d(mContext.getPackageName(), logMessage);
+        if (LOG_DEBUG) {
+            String logMessage = String.format("PREFERENCE GET [TYPE:%s] [KEY:%s] [VALUE:%s]", valueType, key, value.toString());
+            Log.d(DEBUG_TAG, logMessage);
+        }
         return value;
     }
 
@@ -92,7 +104,9 @@ public class ApplicationPreference {
         editor = editor.remove(key);
         editor.apply();
 
-        String logMessage = String.format("PREFERENCE REMOVED [KEY:%s]", key);
-        Log.d(mContext.getPackageName(), logMessage);
+        if (LOG_DEBUG) {
+            String logMessage = String.format("PREFERENCE REMOVE [KEY:%s]", key);
+            Log.d(DEBUG_TAG, logMessage);
+        }
     }
 }
